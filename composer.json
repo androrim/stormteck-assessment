@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle"
+            "Stormtech\\": "src/Stormtech"
         },
         "classmap": [
             "app/AppKernel.php",

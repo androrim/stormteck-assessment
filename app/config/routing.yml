@@ -1,3 +1,4 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+sorting_service:
+    resource: "@SortingServiceBundle/Controller/"
+    type:     annotation
+    prefix:   /
