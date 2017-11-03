@@ -1,4 +1,0 @@
-services:
-#    sorting_service.example:
-#        class: Stormtech\SortingServiceBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]

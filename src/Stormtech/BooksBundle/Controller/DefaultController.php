@@ -1,6 +1,6 @@
 <?php
 
-namespace Stormtech\SortingServiceBundle\Controller;
+namespace Stormtech\BooksBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('SortingServiceBundle:Default:index.html.twig');
+        return $this->render('BooksBundle:Default:index.html.twig');
     }
 }

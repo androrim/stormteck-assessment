@@ -1,6 +1,6 @@
 <?php
 
-namespace Stormtech\SortingServiceBundle\Tests\Controller;
+namespace Stormtech\BooksBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
