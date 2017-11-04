@@ -1,4 +1,4 @@
-# Cache and logs (Symfony2)
+# Cache and logs (Symfony3)
 /app/cache/*
 /app/logs/*
 !app/cache/.gitkeep
@@ -51,3 +51,6 @@
 
 # Doker images
 /mysql/ 
+
+# IDEs
+/nbproject/

@@ -10,3 +10,5 @@ README.md
 !/var/cache/.gitkeep
 !/var/logs/.gitkeep
 !/var/session/.gitkeep
+
+/nbproject/
