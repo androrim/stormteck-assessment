@@ -1,0 +1,11 @@
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: stormtech_assessment
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 5d4d9964f5a9a9e47f795a1ef97cef588b2b0ba1
