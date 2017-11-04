@@ -1,3 +1,8 @@
+authors:
+    resource: "@AuthorsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 books:
     resource: "@BooksBundle/Controller/"
     type:     annotation
