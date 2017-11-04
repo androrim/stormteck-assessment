@@ -1,0 +1,19 @@
+ubuntu:
+  build: .
+  ports:
+     - "80:80"
+  links:
+     - db
+
+db:
+  image: mariadb
+  restart: always
+  volumes:
+    - ./mysql:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: 4ndr0r1m@270rm73ch2017!
+    MYSQL_DATABASE: stormtech_assessment
+  ports:
+    - "8889:3306"
