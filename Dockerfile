@@ -14,6 +14,7 @@ RUN rm -rf /var/www/html
 COPY ./ /var/www
 
 RUN chmod 775 /var/www/html
+RUN chmod 777 /var/www/var/cache && chmod 777 /var/www/var/sessions
 
 #RUN ln -s /var/cache /var/www/var/cache
 
