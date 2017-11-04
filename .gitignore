@@ -42,3 +42,12 @@
 
 # Vendor
 /vendor/
+
+# Var
+/var/*
+!/var/cache/.gitkeep
+!/var/logs/.gitkeep
+!/var/session/.gitkeep
+
+# Doker images
+/mysql/ 
