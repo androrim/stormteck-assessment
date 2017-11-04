@@ -1,1 +1,18 @@
-Authors list
+{% extends 'stormtech.html.twig' %}
+
+{% block body %}
+
+    <section class="container main">
+        <form method="POST">
+            <div>
+                <label>Nome do Autor</label>
+                <input name="name" />
+            </div>
+            
+            <div>
+                <button type="submit">Adicionar</button>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}
