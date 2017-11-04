@@ -3,6 +3,7 @@
 namespace Stormtech\BooksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Stormtech\AuthorsBundle\Entity\Author as Author;
 
 /**
  * Book
@@ -29,11 +30,14 @@ class Book
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255)
+     * Many Books have Many Authors.
+     * @ORM\ManyToMany(targetEntity="\Stormtech\AuthorsBundle\Entity\Author")
+     * @ORM\JoinTable(name="books_authors",
+     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
+     * )
      */
-    private $author;
+    private $authors;
 
     /**
      * @var string
@@ -41,7 +45,6 @@ class Book
      * @ORM\Column(name="edition_year", type="string", length=4)
      */
     private $editionYear;
-
 
     /**
      * Get id
@@ -78,30 +81,6 @@ class Book
     }
 
     /**
-     * Set author
-     *
-     * @param string $author
-     *
-     * @return Book
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
      * Set editionYear
      *
      * @param string $editionYear
@@ -116,6 +95,28 @@ class Book
     }
 
     /**
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    /**
+     * Set authors
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $authors[]
+     * @return Book
+     */
+    public function setAuthors(\Doctrine\Common\Collections\ArrayCollection $authors)
+    {
+        $this->authors = $authors;
+
+        return $this;
+    }
+
+    /**
      * Get editionYear
      *
      * @return string
@@ -124,5 +125,9 @@ class Book
     {
         return $this->editionYear;
     }
-}
 
+    public function __construct()
+    {
+        $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+}
