@@ -1,17 +1,33 @@
 {% extends 'stormtech.html.twig' %}
 
 {% block body %}
-
+    
     <section class="container main">
         <form method="POST">
             <div>
-                <label>Nome do Autor</label>
-                <input name="name" value="{{author.getName()}}" />
+                <label>Título do livro</label>
+                <input name="title" value="{{book.getTitle()}}" />
+            </div>
+
+            <div>
+                <label>Autores</label>
+                
+                {% for author in authors %}
+                    <label class="author">
+                        <input type="checkbox" name="authors[]" value="{{ author.getId() }}" />
+                        {{ author.getName() }}
+                    </label>
+                {% endfor %}
+            </div>
+
+            <div>
+                <label>Ano de edição</label>
+                <input name="edition_year" value="{{book.getEditionYear()}}" />
             </div>
 
             <div>
                 <button type="submit">
-                    {% if author.getId() %}
+                    {% if book.getId() %}
                         Editar
                     {% else %}
                         Adicionar
@@ -19,7 +35,7 @@
                 </button>
             </div>
 
-            <input type="hidden" name="id" value="{{author.getId()}}"
+            <input type="hidden" name="id" value="{{book.getId()}}"
         </form>
     </section>
 
