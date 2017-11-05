@@ -79,6 +79,20 @@ class BooksController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/{id}/delete", name="books_delete")
+     * @param Request $request
+     * @param Book $book
+     */
+    public function deleteAction(Request $request, Book $book)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($book);
+        $em->flush();
+
+        return $this->redirectToRoute('books_list');
+    }
+
     private function persistHelper(Request $request, Book $book)
     {
         $authors = $this->authorRepository

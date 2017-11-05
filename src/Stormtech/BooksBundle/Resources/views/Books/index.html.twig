@@ -10,6 +10,7 @@
                     <th>Título</th>
                     <th>Autores</th>
                     <th>Ano de edição</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,10 @@
                             {% endfor %}
                         </td>
                         <td>{{ book.getEditionYear() }}</td>
+                        <td>
+                            <a href="{{ path('books_edit', {'id': book.getId()}) }}">Editar</a> | 
+                            <a href="{{ path('books_delete', {'id': book.getId()}) }}">Excluir</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
