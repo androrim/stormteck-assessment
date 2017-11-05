@@ -96,11 +96,11 @@ class Book
 
     /**
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return \Author[]
      */
     public function getAuthors()
     {
-        return $this->authors;
+        return $this->authors->toArray();
     }
 
     /**

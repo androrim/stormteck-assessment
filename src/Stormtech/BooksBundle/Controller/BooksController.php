@@ -30,7 +30,13 @@ class BooksController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('BooksBundle:Books:index.html.twig');
+        $books = $this->getDoctrine()
+            ->getRepository('BooksBundle:Book')
+            ->findAll();
+
+        return $this->render('BooksBundle:Books:index.html.twig', [
+            'books' => $books
+        ]);
     }
 
     /**
@@ -68,18 +74,19 @@ class BooksController extends Controller
 
         return $this->render('BooksBundle:Books:addedit.html.twig',[
                 'book' => $book,
-                'selecteds' => $book->getAuthors()->toArray(),
+                'selecteds' => $book->getAuthors(),
                 'authors' => $this->authorRepository->findAll(),
         ]);
     }
 
     private function persistHelper(Request $request, Book $book)
     {
-        $_authors = $this->authorRepository->findByIds((array) $request->get('authors'));
+        $authors = $this->authorRepository
+            ->findByIds((array) $request->get('authors'));
 
         $book->setTitle($request->get('title'));
         $book->setEditionYear($request->get('edition_year'));
-        $book->setAuthors(new ArrayCollection($_authors));
+        $book->setAuthors(new ArrayCollection($authors));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($book);

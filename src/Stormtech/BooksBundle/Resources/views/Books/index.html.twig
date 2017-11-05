@@ -2,7 +2,33 @@
 
 {% block body %}
 
-<h1>Books List!</h1>
+    <section class="container main">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Título</th>
+                    <th>Autores</th>
+                    <th>Ano de edição</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.getId() }}</td>
+                        <td>{{ book.getTitle() }}</td>
+                        <td>
+                            {% for i, author in book.getAuthors() %}
+                                {{ author.getName() }} 
+                                {{ book.getAuthors()[i+1] is defined ? '&' : '' }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ book.getEditionYear() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
 {% endblock %}
 
