@@ -10,4 +10,18 @@ namespace Stormtech\AuthorsBundle\Repository;
  */
 class AuthorRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     *
+     * @param array $ids
+     * @return Stormtech\AuthorsBundle\Entity\Author[]
+     */
+    public function findByIds(array $ids)
+    {
+        $qb = $this->createQueryBuilder('author');
+        $qb->where('author.id IN(:ids)')
+            ->setParameter(':ids', array_values($ids));
+
+        return (array) $qb->getQuery()->getResult();
+    }
 }
