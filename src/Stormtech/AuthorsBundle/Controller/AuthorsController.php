@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Stormtech\AuthorsBundle\Entity\Author;
+use Stormtech\AuthorsBundle\Business\AuthorsBusiness;
 
 class AuthorsController extends Controller
 {
@@ -27,9 +28,14 @@ class AuthorsController extends Controller
             $author = new Author();
             $author->setName($request->get('name'));
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($author);
-            $em->flush();
+            $business = $this->get('authors.business');
+
+            if ($business->isValid($author)) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($author);
+                $em->flush();
+            }
+
         }
 
         return $this->render('AuthorsBundle:Authors:add.html.twig');

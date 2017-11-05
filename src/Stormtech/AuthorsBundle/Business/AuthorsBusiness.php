@@ -37,7 +37,6 @@ class AuthorsBusiness
             $hasPrev  = isset($parts_name[$i - 1]);
             $haNext   = isset($parts_name[$i + 1]);
 
-
             if (!$hasPrev && $partSize < 3) { // eg.: if "Le" return false
                 return false;
             }
@@ -53,5 +52,10 @@ class AuthorsBusiness
         }
 
         return true;
+    }
+
+    public function isValid(Author $author)
+    {
+        return $this->isValidName($author);
     }
 }

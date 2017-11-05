@@ -2,3 +2,6 @@ services:
 #    authors.example:
 #        class: Stormtech\AuthorsBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    authors.business:
+        class: Stormtech\AuthorsBundle\Business\AuthorsBusiness
