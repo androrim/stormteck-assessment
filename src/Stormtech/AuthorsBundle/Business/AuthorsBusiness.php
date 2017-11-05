@@ -46,7 +46,7 @@ class AuthorsBusiness
             elseif ($hasPrev && !$haNext && $partSize < 3) { // eg.: if "Leandro de" return false
                 return false;
             }
-            elseif ($hasPrev && $haNext && strlen($parts_name[$i + 1]) < 3) { // eg.: if "Leandro de Am" return false
+            elseif ($hasPrev && $haNext && $partSize < 3 && strlen($parts_name[$i + 1]) < 3) { // eg.: if "Leandro de Am" return false
                 return false;
             }
         }
