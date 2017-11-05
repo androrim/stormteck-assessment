@@ -14,7 +14,9 @@
                 
                 {% for author in authors %}
                     <label class="author">
-                        <input type="checkbox" name="authors[]" value="{{ author.getId() }}" />
+                        
+                        <input {{ author in selecteds ? 'checked' : '' }} 
+                            type="checkbox" name="authors[]" value="{{ author.getId() }}" />
                         {{ author.getName() }}
                     </label>
                 {% endfor %}

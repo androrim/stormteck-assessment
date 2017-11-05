@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Stormtech\BooksBundle\Entity\Book;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  *
@@ -14,6 +15,16 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class BooksController extends Controller
 {
+    protected $container;
+    private $authorRepository;
+
+    public function setContainer(ContainerInterface $container = null)
+     {
+         $this->container = $container;
+         $this->authorRepository = $this->getDoctrine()
+            ->getRepository('AuthorsBundle:Author');
+     }
+
     /**
      * @Route("/", name="books_list")
      */
@@ -27,31 +38,53 @@ class BooksController extends Controller
      */
     public function addAction(Request $request)
     {
-        $authorRepository = $this->getDoctrine()
-            ->getRepository('AuthorsBundle:Author');
-
         $book    = new Book();
-        $authors = $authorRepository->findAll();
 
         if ($request->getMethod() === 'POST') {
-            $_authors = $authorRepository->findByIds((array) $request->get('authors'));
-
-            var_dump($_authors); die;
-
-            $book->setTitle($request->get('title'));
-            $book->setEditionYear($request->get('edition_year'));
-            $book->setAuthors(new ArrayCollection($_authors));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($book);
-            $em->flush();
+            $this->persistHelper($request, $book);
+            
+            return $this->redirectToRoute('books_edit', [
+                'id' => $book->getId()
+            ]);
         }
 
-        return $this->render('BooksBundle:Books:addedit.html.twig',
-                [
+        return $this->render('BooksBundle:Books:addedit.html.twig',[
                 'book' => $book,
                 'selecteds' => [],
-                'authors' => $authors,
+                'authors' => $this->authorRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="books_edit")
+     * @param Request $request
+     * @param Book $book
+     */
+    public function editAction(Request $request, Book $book)
+    {
+        if ($request->getMethod() === 'POST') {
+            $this->persistHelper($request, $book);
+        }
+
+        return $this->render('BooksBundle:Books:addedit.html.twig',[
+                'book' => $book,
+                'selecteds' => $book->getAuthors()->toArray(),
+                'authors' => $this->authorRepository->findAll(),
+        ]);
+    }
+
+    private function persistHelper(Request $request, Book $book)
+    {
+        $_authors = $this->authorRepository->findByIds((array) $request->get('authors'));
+
+        $book->setTitle($request->get('title'));
+        $book->setEditionYear($request->get('edition_year'));
+        $book->setAuthors(new ArrayCollection($_authors));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($book);
+        $em->flush();
+
+        return $book;
     }
 }
