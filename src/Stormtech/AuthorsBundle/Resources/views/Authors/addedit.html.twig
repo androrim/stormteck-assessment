@@ -1,0 +1,26 @@
+{% extends 'stormtech.html.twig' %}
+
+{% block body %}
+
+    <section class="container main">
+        <form method="POST">
+            <div>
+                <label>Nome do Autor</label>
+                <input name="name" value="{{author.getName()}}" />
+            </div>
+
+            <div>
+                <button type="submit">
+                    {% if author.getId() %}
+                        Editar
+                    {% else %}
+                        Adicionar
+                    {% endif %}
+                </button>
+            </div>
+
+            <input type="hidden" name="id" value="{{author.getId()}}"
+        </form>
+    </section>
+
+{% endblock %}

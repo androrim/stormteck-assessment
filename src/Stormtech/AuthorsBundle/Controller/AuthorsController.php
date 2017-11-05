@@ -8,11 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Stormtech\AuthorsBundle\Entity\Author;
 use Stormtech\AuthorsBundle\Business\AuthorsBusiness;
 
+/**
+ * @Route("authors")
+ */
 class AuthorsController extends Controller
 {
 
     /**
-     * @Route("/authors")
+     * @Route("/")
      */
     public function indexAction()
     {
@@ -20,12 +23,13 @@ class AuthorsController extends Controller
     }
 
     /**
-     * @Route("/authors/add")
+     * @Route("/add")
      */
     public function addAction(Request $request)
     {
+        $author = new Author();
+        
         if ($request->getMethod() === 'POST') {
-            $author = new Author();
             $author->setName($request->get('name'));
 
             $business = $this->get('authors.business');
@@ -38,6 +42,20 @@ class AuthorsController extends Controller
 
         }
 
-        return $this->render('AuthorsBundle:Authors:add.html.twig');
+        return $this->render('AuthorsBundle:Authors:addedit.html.twig', [
+            'author' => $author
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="authors_edit")
+     * @param Request $request
+     * @param Author $author
+     */
+    public function editAction(Request $request, Author $author)
+    {
+        return $this->render('AuthorsBundle:Authors:addedit.html.twig', [
+            'author' => $author
+        ]);
     }
 }

@@ -5,10 +5,14 @@ namespace Stormtech\BooksBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ *
+ * @Route("/books")
+ */
 class BooksController extends Controller
 {
     /**
-     * @Route("/books")
+     * @Route("/", name="books_list")
      */
     public function indexAction()
     {
