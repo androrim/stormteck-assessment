@@ -24,8 +24,10 @@
 !bin/symfony_requirements
 
 # Assets and user uploads
-/html/bundles/
-/html/uploads/
+/web/bundles/
+/web/assets/js/libs.js
+/web/assets/css/libs.css
+/web/assets/css/fonts/
 
 # PHPUnit
 /app/phpunit.xml
