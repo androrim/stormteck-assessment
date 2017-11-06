@@ -5,6 +5,3 @@ services:
 
     authors.business:
         class: Stormtech\AuthorsBundle\Service\AuthorsBusiness
-
-    authors.app_messages:
-        class: Stormtech\AuthorsBundle\Service\AuthorsAppMessages
