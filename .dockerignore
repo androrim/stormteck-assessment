@@ -13,3 +13,4 @@ README.md
 !/var/session/.gitkeep
 
 /nbproject/
+/node_modules/
