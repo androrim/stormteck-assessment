@@ -11,6 +11,7 @@ README.md
 !/var/cache/.gitkeep
 !/var/logs/.gitkeep
 !/var/session/.gitkeep
+run.sh
 
 /nbproject/
 /node_modules/
