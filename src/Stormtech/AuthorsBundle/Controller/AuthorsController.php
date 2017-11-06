@@ -36,6 +36,7 @@ class AuthorsController extends Controller
     public function addAction(Request $request)
     {
         $author = new Author();
+        $messages = $this->get('authors.app_messages');
 
         if ($request->getMethod() === 'POST') {
             $author->setName($request->get('name'));
