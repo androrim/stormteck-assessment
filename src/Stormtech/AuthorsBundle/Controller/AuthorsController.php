@@ -41,7 +41,9 @@ class AuthorsController extends Controller
             $business = $this->get('authors.business');
 
             if ($business->isValid($author)) {
-                $this->persistHelper($request, $author);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($author);
+                $em->flush();
 
                 return $this->redirectToRoute('authors_edit', [
                         'id' => $author->getId()
