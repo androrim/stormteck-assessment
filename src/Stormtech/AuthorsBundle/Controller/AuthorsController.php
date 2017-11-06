@@ -29,7 +29,9 @@ class AuthorsController extends Controller
     }
 
     /**
-     * @Route("/add")
+     * @Route("/add", name="authors_add")
+     * @param Request $request
+     * @return type
      */
     public function addAction(Request $request)
     {

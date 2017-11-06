@@ -8,10 +8,13 @@ var stripJS = require('gulp-strip-comments');
 // Dependências do Site
 var paths = {
     js: [
-        './node_modules/jquery/dist/jquery.min.js'
+        './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/bootstrap/dist/js/*.min.js',
+        './node_modules/jquery-confirm/dist/*.min.js',
     ],
     css: [
-        './node_modules/bootstrap/dist/css/*.min.css'
+        './node_modules/bootstrap/dist/css/*.min.css',
+        './node_modules/jquery-confirm/dist/*.min.css'
     ]
 };
 

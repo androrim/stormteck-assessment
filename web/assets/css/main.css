@@ -4,3 +4,15 @@
     padding: 0;
 }
 
+.books .authors {
+    max-height: 200px;
+    width: 300px;
+    overflow: auto;
+    border: solid 1px #ccc;
+    padding: 7px
+}
+
+.books .authors label {
+    padding: 0 3px;
+    font-weight: normal;
+}

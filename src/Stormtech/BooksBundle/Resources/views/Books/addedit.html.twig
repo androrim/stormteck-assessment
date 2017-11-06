@@ -2,37 +2,47 @@
 
 {% block body %}
     
-    <section class="container main">
+    <section class="container main books">
         <form method="POST">
-            <div>
-                <label>Título do livro</label>
-                <input name="title" value="{{book.getTitle()}}" />
+            <div class="row">
+                <div class="form-group col-md-9">
+                    <label>Título do livro</label>
+                    <input class="form-control" name="title" value="{{book.getTitle()}}" placeholder="Digite o nome do livro" />
+                </div>
+                
+                <div class="form-group col-md-3">
+                    <label>Ano de edição</label>
+                    <input class="form-control" name="edition_year" value="{{book.getEditionYear()}}" />
+                </div>
             </div>
+            
 
-            <div>
+            <div class="form-group">
                 <label>Autores</label>
                 
-                {% for author in authors %}
-                    <label class="author">
-                        
-                        <input {{ author in selecteds ? 'checked' : '' }} 
-                            type="checkbox" name="authors[]" value="{{ author.getId() }}" />
-                        {{ author.getName() }}
-                    </label>
-                {% endfor %}
+                <div class="authors">
+                    {% for author in authors %}
+                        <div>
+                            <label>
+                                <input {{ author in selecteds ? 'checked' : '' }} 
+                                    type="checkbox" name="authors[]" value="{{ author.getId() }}" />
+                                {{ author.getName() }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    
+                    <hr />
+                    
+                    <a target="_blank" href="{{ path('authors_add') }}">Novo author</a>
+                </div>
             </div>
 
             <div>
-                <label>Ano de edição</label>
-                <input name="edition_year" value="{{book.getEditionYear()}}" />
-            </div>
-
-            <div>
-                <button type="submit">
+                <button class="btn btn-primary" type="submit">
                     {% if book.getId() %}
-                        Editar
+                        Editar livro
                     {% else %}
-                        Adicionar
+                        Adicionar livro
                     {% endif %}
                 </button>
             </div>

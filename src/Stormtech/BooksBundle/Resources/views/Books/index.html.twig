@@ -2,8 +2,17 @@
 
 {% block body %}
 
-    <section class="container main">
-        <table>
+    <section class="container main books">
+        <header>
+            <h3 class="title">Livros</h3>
+        </header>
+        
+        <hr />
+        
+        <a class="btn btn-default btn-xs" href="{{ path('books_add') }}">Novo livro</a>
+        
+
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -27,7 +36,7 @@
                         <td>{{ book.getEditionYear() }}</td>
                         <td>
                             <a href="{{ path('books_edit', {'id': book.getId()}) }}">Editar</a> | 
-                            <a href="{{ path('books_delete', {'id': book.getId()}) }}">Excluir</a>
+                            <a class="delete" href="{{ path('books_delete', {'id': book.getId()}) }}">Excluir</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -35,5 +44,7 @@
         </table>
     </section>
 
+    <script src="{{ asset('assets/js/books.js') }}"></script>
 {% endblock %}
+
 
