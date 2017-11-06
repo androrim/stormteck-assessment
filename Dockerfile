@@ -14,17 +14,20 @@ RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-
 RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/ \
-    && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
+#RUN curl -sS https://getcomposer.org/installer | php \
+#    && mv composer.phar /usr/local/bin/ \
+#    && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 RUN rm -rf /var/www/html
 
 COPY ./ /var/www
+COPY ./app/config/parameters_prod.yml /var/www/app/config/parameters.yml
 
 RUN chmod 775 /var/www/html
-RUN chmod 777 /var/www/var/cache && chmod 777 /var/www/var/sessions
+RUN chmod -R 777 /var/www/var/cache
+RUN chmod -R 777 /var/www/var/logs
+RUN chmod -R 777 /var/www/var/sessions
 
-RUN composer install -d /var/www
+#RUN composer install -d /var/www
 
 
