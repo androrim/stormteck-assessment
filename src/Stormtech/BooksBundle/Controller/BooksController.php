@@ -19,11 +19,11 @@ class BooksController extends Controller
     private $authorRepository;
 
     public function setContainer(ContainerInterface $container = null)
-     {
-         $this->container = $container;
-         $this->authorRepository = $this->getDoctrine()
+    {
+        $this->container        = $container;
+        $this->authorRepository = $this->getDoctrine()
             ->getRepository('AuthorsBundle:Author');
-     }
+    }
 
     /**
      * @Route("/", name="books_list")
@@ -35,7 +35,7 @@ class BooksController extends Controller
             ->findAll();
 
         return $this->render('BooksBundle:Books:index.html.twig', [
-            'books' => $books
+                'books' => $books
         ]);
     }
 
@@ -44,17 +44,19 @@ class BooksController extends Controller
      */
     public function addAction(Request $request)
     {
-        $book    = new Book();
+        $book = new Book();
 
         if ($request->getMethod() === 'POST') {
-            $this->persistHelper($request, $book);
-            
-            return $this->redirectToRoute('books_edit', [
-                'id' => $book->getId()
-            ]);
+            if ($this->persistHelper($request, $book)) {
+                $this->addFlash('success', 'Livro adicionado com sucesso!');
+
+                return $this->redirectToRoute('books_edit', [
+                        'id' => $book->getId()
+                ]);
+            }
         }
 
-        return $this->render('BooksBundle:Books:addedit.html.twig',[
+        return $this->render('BooksBundle:Books:addedit.html.twig', [
                 'book' => $book,
                 'selecteds' => [],
                 'authors' => $this->authorRepository->findAll(),
@@ -69,10 +71,12 @@ class BooksController extends Controller
     public function editAction(Request $request, Book $book)
     {
         if ($request->getMethod() === 'POST') {
-            $this->persistHelper($request, $book);
+            if ($this->persistHelper($request, $book)) {
+                $this->addFlash('success', 'Livro editado com sucesso!');
+            }
         }
 
-        return $this->render('BooksBundle:Books:addedit.html.twig',[
+        return $this->render('BooksBundle:Books:addedit.html.twig', [
                 'book' => $book,
                 'selecteds' => $book->getAuthors(),
                 'authors' => $this->authorRepository->findAll(),
@@ -90,11 +94,14 @@ class BooksController extends Controller
         $em->remove($book);
         $em->flush();
 
+        $this->addFlash('success', 'Livro excluído com sucesso!');
+
         return $this->redirectToRoute('books_list');
     }
 
     private function persistHelper(Request $request, Book $book)
     {
+        $persist = true;
         $authors = $this->authorRepository
             ->findByIds((array) $request->get('authors'));
 
@@ -102,10 +109,22 @@ class BooksController extends Controller
         $book->setEditionYear($request->get('edition_year'));
         $book->setAuthors(new ArrayCollection($authors));
 
+        $business = $this->get('books.business');
+        
+        if (!$business->isValidDate($book)) {
+            $this->addFlash('danger', 'O ano de edição do livro não pode ser maior que o ano atual.');
+            $persist = false;
+        }
+
+        if (!$business->isValidTitle($book)) {
+            $this->addFlash('danger', 'O título do livro tem que mais do que 3 caracteres.');
+            $persist = false;
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($book);
         $em->flush();
 
-        return $book;
+        return $persist;
     }
 }

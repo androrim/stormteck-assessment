@@ -1,25 +1,37 @@
 {% extends 'stormtech.html.twig' %}
 
 {% block body %}
-    
+
     <section class="container main books">
+        <header>
+            <h3 class="title">
+                {% if book.getId() %}
+                    Editar livro
+                {% else %}
+                    Adicionar livro
+                {% endif %}
+            </h3>
+        </header>
+
+        <hr />
+
         <form method="POST">
             <div class="row">
                 <div class="form-group col-md-9">
                     <label>Título do livro</label>
                     <input class="form-control" name="title" value="{{book.getTitle()}}" placeholder="Digite o nome do livro" />
                 </div>
-                
+
                 <div class="form-group col-md-3">
                     <label>Ano de edição</label>
                     <input class="form-control" name="edition_year" value="{{book.getEditionYear()}}" />
                 </div>
             </div>
-            
+
 
             <div class="form-group">
                 <label>Autores</label>
-                
+
                 <div class="authors">
                     {% for author in authors %}
                         <div>
@@ -30,9 +42,9 @@
                             </label>
                         </div>
                     {% endfor %}
-                    
+
                     <hr />
-                    
+
                     <a target="_blank" href="{{ path('authors_add') }}">Novo author</a>
                 </div>
             </div>

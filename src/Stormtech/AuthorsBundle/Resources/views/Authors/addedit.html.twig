@@ -2,17 +2,29 @@
 
 {% block body %}
 
+
     <section class="container main">
+        <header>
+            <h3 class="title">
+                {% if author.getId() %}
+                    Editar autor
+                {% else %}
+                    Adicionar autor
+                {% endif %}
+            </h3>
+        </header>
+
+        <hr />
+
         <form method="POST">
-            
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Nome do Autor</label>
                     <input class="form-control" name="name" value="{{author.getName()}}" />
                 </div>
-                
+
             </div>
-                
+
             <div>
                 <button class="btn btn-primary" type="submit">
                     {% if author.getId() %}

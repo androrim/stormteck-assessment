@@ -36,17 +36,17 @@ class AuthorsController extends Controller
     public function addAction(Request $request)
     {
         $author = new Author();
-        $messages = $this->get('authors.app_messages');
 
         if ($request->getMethod() === 'POST') {
             $author->setName($request->get('name'));
-
             $business = $this->get('authors.business');
 
             if ($business->isValid($author)) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($author);
                 $em->flush();
+
+                $this->addFlash('success', 'Autor adicionado com sucesso!');
 
                 return $this->redirectToRoute('authors_edit', [
                         'id' => $author->getId()
@@ -68,13 +68,17 @@ class AuthorsController extends Controller
     {
         if ($request->getMethod() === 'POST') {
             $author->setName($request->get('name'));
-
             $business = $this->get('authors.business');
 
             if ($business->isValid($author)) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($author);
                 $em->flush();
+
+                $this->addFlash('success', 'Autor editado com sucesso!');
+            }
+            else {
+                $this->addFlash('danger', 'Digite um nome completo válido (sem números).');
             }
         }
 
@@ -96,6 +100,9 @@ class AuthorsController extends Controller
             $em->flush();
         }
         catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+            $this->addFlash('danger', 'Não foi possível excluir este autor.');
+            $this->addFlash('warning', 'Este autor está relacionado à um ou mais livros.');
+
             return $this->redirectToRoute('authors_list', [
                     'error' => 'rel'
             ]);
