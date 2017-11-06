@@ -4,20 +4,25 @@
 
     <section class="container main">
         <form method="POST">
-            <div>
-                <label>Nome do Autor</label>
-                <input name="name" value="{{author.getName()}}" />
+            
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Nome do Autor</label>
+                    <input class="form-control" name="name" value="{{author.getName()}}" />
+                </div>
+                
             </div>
-
+                
             <div>
-                <button type="submit">
+                <button class="btn btn-primary" type="submit">
                     {% if author.getId() %}
-                        Editar
+                        Editar autor
                     {% else %}
-                        Adicionar
+                        Adicionar autor
                     {% endif %}
                 </button>
             </div>
+
 
             <input type="hidden" name="id" value="{{author.getId()}}"
         </form>

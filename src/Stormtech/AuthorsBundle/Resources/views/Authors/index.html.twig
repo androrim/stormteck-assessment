@@ -2,8 +2,16 @@
 
 {% block body %}
 
-    <section class="container main">
-        <table>
+    <section class="container main authors">
+        <header>
+            <h3 class="title">Livros</h3>
+        </header>
+        
+        <hr />
+        
+        <a class="btn btn-default btn-xs" href="{{ path('authors_add') }}">Novo autor</a>
+        
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
