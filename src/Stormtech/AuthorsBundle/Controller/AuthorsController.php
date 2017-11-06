@@ -87,9 +87,16 @@ class AuthorsController extends Controller
      */
     public function deleteAction(Request $request, Author $author)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($author);
-        $em->flush();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($author);
+            $em->flush();
+        }
+        catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $ex) {
+            return $this->redirectToRoute('authors_list', [
+                    'error' => 'rel'
+            ]);
+        }
 
         return $this->redirectToRoute('authors_list');
     }
