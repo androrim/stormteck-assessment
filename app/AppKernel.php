@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Stormtech\BooksBundle\BooksBundle(),
             new Stormtech\AuthorsBundle\AuthorsBundle(),
+            new Stormtech\DefaultBundle\DefaultBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
