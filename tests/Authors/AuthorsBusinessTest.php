@@ -4,7 +4,7 @@ namespace Stormtech\AuthorBundle\Tests\Business;
 
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Stormtech\AuthorsBundle\Entity\Author;
-use Stormtech\AuthorsBundle\Business\AuthorsBusiness;
+use Stormtech\AuthorsBundle\Service\AuthorsBusiness;
 
 /**
  * Unit Tests for AuthorsBusiness
