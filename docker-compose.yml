@@ -1,0 +1,19 @@
+version: '2'
+services:
+  php:
+    build: .
+    ports:
+      - "80:80"
+    links:
+       - db
+    depends_on:
+      - db
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: stormtech_assessment
+      MYSQL_USER: stormtech
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "33061:3306"

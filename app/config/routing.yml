@@ -1,0 +1,14 @@
+authors:
+    resource: "@AuthorsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+books:
+    resource: "@BooksBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+default:
+    resource: "@DefaultBundle/Controller/"
+    type:     annotation
+    prefix:   /

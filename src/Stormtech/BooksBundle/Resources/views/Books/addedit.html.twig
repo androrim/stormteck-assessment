@@ -1,0 +1,66 @@
+{% extends 'stormtech.html.twig' %}
+
+{% block body %}
+
+    <section class="container main books">
+        <header>
+            <h3 class="title">
+                {% if book.getId() %}
+                    Editar livro
+                {% else %}
+                    Adicionar livro
+                {% endif %}
+            </h3>
+        </header>
+
+        <hr />
+
+        <form method="POST">
+            <div class="row">
+                <div class="form-group col-md-9">
+                    <label>Título do livro</label>
+                    <input class="form-control" name="title" value="{{book.getTitle()}}" placeholder="Digite o nome do livro" />
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label>Ano de edição</label>
+                    <input class="form-control" name="edition_year" value="{{book.getEditionYear()}}" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label>Autores</label>
+
+                <div class="authors">
+                    {% for author in authors %}
+                        <div>
+                            <label>
+                                <input {{ author in selecteds ? 'checked' : '' }} 
+                                    type="checkbox" name="authors[]" value="{{ author.getId() }}" />
+                                {{ author.getName() }}
+                            </label>
+                        </div>
+                    {% endfor %}
+
+                    <hr />
+
+                    <a target="_blank" href="{{ path('authors_add') }}">Novo author</a>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit">
+                    {% if book.getId() %}
+                        Editar livro
+                    {% else %}
+                        Adicionar livro
+                    {% endif %}
+                </button>
+            </div>
+
+            <input type="hidden" name="id" value="{{book.getId()}}"
+        </form>
+    </section>
+
+{% endblock %}

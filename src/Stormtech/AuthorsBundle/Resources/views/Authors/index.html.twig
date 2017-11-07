@@ -1,0 +1,40 @@
+{% extends 'stormtech.html.twig' %}
+
+{% block body %}
+
+    <section class="container main authors">
+        <header>
+            <h3 class="title">Livros</h3>
+        </header>
+
+        <hr />
+
+        <a class="btn btn-default btn-xs" href="{{ path('authors_add') }}">Novo autor</a>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for author in authors %}
+                    <tr>
+                        <td>{{ author.getId() }}</td>
+                        <td>{{ author.getName() }}</td>
+                        <td>
+                            <a href="{{ path('authors_edit', {'id': author.getId()}) }}">Editar</a> | 
+                            <a class="delete" href="{{ path('authors_delete', {'id': author.getId()}) }}">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <script src="{{ asset('assets/js/authors.js') }}"></script>
+
+{% endblock %}
+

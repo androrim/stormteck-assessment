@@ -1,0 +1,17 @@
+.git
+.gitignore
+.docker
+
+Dockerfile
+docker-compose.yml
+/mysql/
+
+README.md
+/var/*
+!/var/cache/.gitkeep
+!/var/logs/.gitkeep
+!/var/session/.gitkeep
+run.sh
+
+/nbproject/
+/node_modules/
