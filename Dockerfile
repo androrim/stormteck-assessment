@@ -22,8 +22,9 @@ RUN sed -i 's!/var/www/html!/var/www/web!g' /etc/apache2/apache2.conf
 RUN sed -i 's!/var/www/html!/var/www/web!g' /etc/apache2/sites-available/000-default.conf
 
 RUN chmod 775 /var/www/web
-RUN chmod -R 777 /var/www/var/logs
-RUN chmod -R 777 /var/www/var/sessions
+RUN mkdir -p /var/www/var/cache && chmod 777 /var/www/var/cache
+RUN mkdir -p /var/www/var/logs && chmod 777 /var/www/var/logs
+RUN mkdir -p /var/www/var/sessions && chmod 777 /var/www/var/sessions
 
 RUN npm install
 RUN npm install -g gulp
