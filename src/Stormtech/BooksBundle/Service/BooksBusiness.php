@@ -18,6 +18,6 @@ class BooksBusiness
 
     public function isValidTitle(Book $book)
     {
-        return trim(strlen($book->getTitle())) > 2;
+        return trim(strlen($book->getTitle())) > 1;
     }
 }

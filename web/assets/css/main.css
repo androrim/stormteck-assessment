@@ -16,3 +16,24 @@
     padding: 0 3px;
     font-weight: normal;
 }
+
+form.filter-books {
+    padding: 5px;
+    border: solid 1px #ccc;
+    margin: 10px 0;
+}
+
+form.filter-books .title {
+    padding-right: 25px;
+}
+
+form.filter-books .space {
+    padding: 0 25px;
+    font-size: 19px;
+    color: #888;
+    font-weight: bold;
+}
+
+form.filter-books button {
+    margin-left: 25px;
+}

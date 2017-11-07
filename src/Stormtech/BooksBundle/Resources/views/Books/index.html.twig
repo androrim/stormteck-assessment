@@ -6,11 +6,51 @@
         <header>
             <h3 class="title">Livros</h3>
         </header>
-        
+
         <hr />
-        
+
         <a class="btn btn-default btn-xs" href="{{ path('books_add') }}">Novo livro</a>
-        
+
+        <form class="filter-books">
+            <span class="title">Filtrar por:</span>
+
+            <label>
+                <input {{ 'title' in fields ? 'checked' : '' }} type="checkbox" name="orderby[]" value="title" /> Título
+            </label>
+
+            <select name="order[title]">
+                <option>ASC</option>
+                <option {{ orders and orders.title == 'DESC' ? 'selected' }}>DESC</option>
+            </select>
+                
+            <span class="space">&</span>
+                
+            <label>
+                <input {{ 'author' in fields ? 'checked' : '' }} type="checkbox" name="orderby[]" value="author" /> Autor
+            </label>
+                    
+            <select name="order[author]">
+                <option>ASC</option>
+                <option {{ orders and orders.author == 'DESC' ? 'selected' }}>DESC</option>
+            </select>
+            
+            <span class="space">&</span>
+            
+            <label>
+                <input {{ 'editionYear' in fields ? 'checked' : '' }} type="checkbox" name="orderby[]" value="editionYear" /> Ano edição
+            </label>
+                    
+            <select name="order[editionYear]">
+                <option>ASC</option>
+                <option {{ orders and orders.editionYear == 'DESC' ? 'selected' }}>DESC</option>
+            </select>
+            
+            <input type="hidden" name="books-filter" value="on" />
+            
+            <button class="btn btn-primary btn-sm" type="submit">Aplicar</button>
+            <a class="btn btn-default btn-sm" href="{{ path('books_list') }}">Limpar</a>
+        </form>
+
 
         <table class="table table-striped">
             <thead>

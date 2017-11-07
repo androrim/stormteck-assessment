@@ -3,6 +3,7 @@
 namespace Stormtech\AuthorsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Stormtech\BooksBundle\Entity\Book;
 
 /**
  * Author
@@ -27,6 +28,12 @@ class Author
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * Many Authors have Many Books.
+     * @ORM\ManyToMany(targetEntity="\Stormtech\BooksBundle\Entity\Book", mappedBy="authors")
+     */
+    private $books;
 
 
     /**
@@ -61,6 +68,33 @@ class Author
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     *
+     * @return \Author[]
+     */
+    public function getAuthors()
+    {
+        return $this->books->toArray();
+    }
+
+    /**
+     * Set books
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $books[]
+     * @return Book
+     */
+    public function setAuthors(\Doctrine\Common\Collections\ArrayCollection $books)
+    {
+        $this->books = $books;
+
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }
 

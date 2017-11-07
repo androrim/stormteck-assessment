@@ -3,7 +3,7 @@
 namespace Stormtech\BooksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Stormtech\AuthorsBundle\Entity\Author as Author;
+use Stormtech\AuthorsBundle\Entity\Author;
 
 /**
  * Book
@@ -29,13 +29,19 @@ class Book
      */
     private $title;
 
-    /**
+    /*
      * Many Books have Many Authors.
      * @ORM\ManyToMany(targetEntity="\Stormtech\AuthorsBundle\Entity\Author")
      * @ORM\JoinTable(name="books_authors",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="id")}
      * )
+     */
+
+    /**
+     * Many Books have Many Authors.
+     * @ORM\ManyToMany(targetEntity="\Stormtech\AuthorsBundle\Entity\Author", inversedBy="books")
+     * @ORM\JoinTable(name="books_authors")
      */
     private $authors;
 

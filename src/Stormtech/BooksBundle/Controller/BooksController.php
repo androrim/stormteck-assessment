@@ -28,15 +28,27 @@ class BooksController extends Controller
     /**
      * @Route("/", name="books_list")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $books = $this->getDoctrine()
-            ->getRepository('BooksBundle:Book')
-            ->findAll();
+        $repository = $this->getDoctrine()
+            ->getRepository('BooksBundle:Book');
+        $books = [];
 
-        return $this->render('BooksBundle:Books:index.html.twig', [
-                'books' => $books
-        ]);
+        $fields = $request->get('orderby');
+        $orders = $request->get('order');
+
+        if ($request->get('books-filter')) {
+
+            if ($fields) {
+                $books = $repository->findAllOrderBy($fields, $orders);
+            }
+        }
+        else {
+            $books = $repository->findAll();
+        }
+
+        return $this->render('BooksBundle:Books:index.html.twig',
+                ['books' => $books, 'fields' => $fields, 'orders' => $orders]);
     }
 
     /**
@@ -50,17 +62,14 @@ class BooksController extends Controller
             if ($this->persistHelper($request, $book)) {
                 $this->addFlash('success', 'Livro adicionado com sucesso!');
 
-                return $this->redirectToRoute('books_edit', [
-                        'id' => $book->getId()
-                ]);
+                return $this->redirectToRoute('books_edit',
+                        ['id' => $book->getId()]);
             }
         }
 
-        return $this->render('BooksBundle:Books:addedit.html.twig', [
-                'book' => $book,
-                'selecteds' => [],
-                'authors' => $this->authorRepository->findAll(),
-        ]);
+        return $this->render('BooksBundle:Books:addedit.html.twig',
+                ['book' => $book, 'selecteds' => [],
+                'authors' => $this->authorRepository->findAll(),]);
     }
 
     /**
@@ -76,9 +85,8 @@ class BooksController extends Controller
             }
         }
 
-        return $this->render('BooksBundle:Books:addedit.html.twig', [
-                'book' => $book,
-                'selecteds' => $book->getAuthors(),
+        return $this->render('BooksBundle:Books:addedit.html.twig',
+                ['book' => $book, 'selecteds' => $book->getAuthors(),
                 'authors' => $this->authorRepository->findAll(),
         ]);
     }
@@ -110,14 +118,16 @@ class BooksController extends Controller
         $book->setAuthors(new ArrayCollection($authors));
 
         $business = $this->get('books.business');
-        
+
         if (!$business->isValidDate($book)) {
-            $this->addFlash('danger', 'O ano de edição do livro não pode ser maior que o ano atual.');
+            $this->addFlash('danger',
+                'O ano de edição do livro não pode ser maior que o ano atual.');
             $persist = false;
         }
 
         if (!$business->isValidTitle($book)) {
-            $this->addFlash('danger', 'O título do livro tem que mais do que 3 caracteres.');
+            $this->addFlash('danger',
+                'O título do livro tem que mais do que 3 caracteres.');
             $persist = false;
         }
 
