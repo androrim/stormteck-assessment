@@ -1,6 +1,6 @@
 <?php
 
-namespace Stormtech\AuthorBundle\Tests\Business;
+namespace Stormtech\AuthorsBundle\Tests\Business;
 
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Stormtech\AuthorsBundle\Entity\Author;
